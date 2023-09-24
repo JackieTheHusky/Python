@@ -12,6 +12,7 @@ Python Work/Personal Projects
 
 <h3>Notes:</h3>
 Poker Game:
-</n> It's not a real game of poker. Someone told me what poker really is and that's what I'm currenly working on
-</n> Pokerv2 Game:
-</n> Hopefully the right game of poker. It's play until someone doesn't want to play anymore or if you have less then 10 coins left. Framework is there, however, still in testing
+<br> It's not a real game of poker. Someone told me what poker really is and that's what I'm currenly working on
+<br> 
+<br> Pokerv2 Game:
+<br> Hopefully the right game of poker. It's play until someone doesn't want to play anymore or if you have less then 10 coins left. Framework is there, however, still in testing
