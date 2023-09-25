@@ -399,17 +399,19 @@ while coin > 10 and just_end_it == "no":
     coin = coin - 10
     folding = "no"
     bet = 0
+    print("")
     #What the house does
     if round == 0:
         b = player_win(dc1,dc2,dc3,dc4,dc5,pc1,pc2,hc1,hc2)
         difficult = brain_power(difficulty)
+    shown_card_list = [card_list[0],card_list[1],card_list[2]]
     #Round loops 2 times
     while round < 3:
-        print(f"You have {coin}.")
-        shown_card_list = [card_list[0],card_list[2],card_list[3]]
+        print(f"You have {coin-bet}.")
+        print("")
         a = card_list[round+2]
         if a not in shown_card_list:
-            shown_card_list.insert(0,a)
+            shown_card_list.insert(-1,a)
         time.sleep(1)
         print(f"There are {shown_card_list} on the table")
         print(f"In your hand you have {pc1, pc2}")
@@ -419,20 +421,27 @@ while coin > 10 and just_end_it == "no":
         time.sleep(1)
         match ychoice:
             case "fold":
+                print("")
                 print("O, ok")
                 round = 4
                 folding = "yes"
+                print("")
             case "raise":
-                a = raises(coin)
-                if round == 0:
-                    print("O, someone is confident I see. Well, I wonder if that was a good idea.")
-                    bet = bet + a
-                elif round >= 1:
-                    print("Ah, I bet you like what you are seeing.")
-                    bet = bet + a
+                print("")
+                a = raises(coin-bet)
                 if a == None:
                     round = 4
                     bet = coin
+                elif round == 0:
+                    print("O, someone is confident I see. Well, I wonder if that was a good idea.")
+                    bet = bet + a
+                    round = round + 1
+                elif round >= 1:
+                    print("Ah, I bet you like what you are seeing.")
+                    bet = bet + a
+                    round = round + 1
+
+                print("")
             case "call":
                 print("O, I see. You have decided to call.")
                 if difficult[round] == 0:
@@ -441,7 +450,9 @@ while coin > 10 and just_end_it == "no":
                         if bets == None:
                             bet = coin
                             round = round + 4
-                        round = round + 1
+                        else:
+                            bet = bets + bet
+                            round = round + 1
                     else:
                         print("I shall also call")
                         round = round + 1
@@ -451,27 +462,35 @@ while coin > 10 and just_end_it == "no":
                         if bets == None:
                             bet = coin
                             round = round + 4
-                        round = round + 1
+                        else:
+                            bet = bets + bet
+                            round = round + 1
                     else:
                         print("I shall also call")
                         round = round + 1
+                print("")
     #End
     if round >= 3:
         if folding == "no":
             print("Calculating Win")
+            print("")
             time.sleep(3)
             if b == 1:
                 print("You win")
                 coin = coin + 2*bet + 20
             elif b is None:
+                print("You lose")
+                print(f"I had {hc1,hc2}")
                 coin = coin - bet
         else:
             coin = coin - bet
             print(f"Because you folded, you lost {bet+10} coins. I wish you luck next time")
+            print("")
         #Continue?
         total_round = total_round + 1
         print(f"You have {coin} and you are had played {total_round} rounds.")
         c = input(f"Do you wish to continue? You have {coin} left ").strip()
+        print("")
         if c.lower() == "no":
             print("Ah, ok. I hope you had fun")
             just_end_it == "yes"
